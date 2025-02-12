@@ -73,6 +73,7 @@ void GameInstance::close() {
     IMG_Quit();
     SDL_Quit();
 }
+
 int GameInstance::mainLoop() {
     if (!init()) {
         printf( "Something went wrong! Error is: %s\n", SDL_GetError());
@@ -82,8 +83,9 @@ int GameInstance::mainLoop() {
     std::shared_ptr<Texture> txt1 = std::make_shared<Texture>();
     txt1->loadFromFile(render_system->get_renderer(), "assets/Sprite-0001.png");
     // Sprite spr1(txt1, {0, 0});
-    std::shared_ptr<Sprite> spr1 = std::make_shared<Sprite>(txt1, Position(0, 0));
-    render_system->add_sprite(RLayer::PLAYER, spr1);
+    Sprite spr2 = Sprite(txt1, Position(0, 0));
+    render_system->add_sprite(RLayer::BACKGROUND, "player", spr2);
+    Sprite& spr = render_system->get_sprite(RLayer::BACKGROUND, "player");
 
     // Main loop flag
     bool quit = false;
@@ -101,16 +103,16 @@ int GameInstance::mainLoop() {
                 //Select surfaces based on key press
                 switch( e.key.keysym.sym ) {
                     case SDLK_d:
-                        spr1->update_position(10, 0);
+                        spr.update_position(10, 0);
                     break;
                     case SDLK_a:
-                        spr1->update_position(-10, 0);
+                        spr.update_position(-10, 0);
                     break;
                     case SDLK_w:
-                        spr1->update_position(0, -10);
+                        spr.update_position(0, -10);
                     break;
                     case SDLK_s:
-                        spr1->update_position(0, 10);
+                        spr.update_position(0, 10);
                     break;
                     default:
                     break;

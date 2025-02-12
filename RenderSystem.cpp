@@ -41,8 +41,12 @@ SDL_Renderer * RenderSystem::get_renderer() const {
     return renderer;
 }
 
-void RenderSystem::add_sprite(RLayer layer, const std::shared_ptr<Sprite> &sprite) {
-    layers_[static_cast<int>(layer)].add_sprite(sprite);
+void RenderSystem::add_sprite(RLayer layer, const std::string& name, const Sprite& sprite) {
+    layers_[static_cast<int>(layer)].add_sprite(name, sprite);
+}
+
+Sprite & RenderSystem::get_sprite(RLayer layer, const std::string &name) {
+    return layers_[static_cast<int>(layer)].get(name);
 }
 
 void RenderSystem::free() {

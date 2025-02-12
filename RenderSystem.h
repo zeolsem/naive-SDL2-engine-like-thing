@@ -23,7 +23,9 @@ public:
     void draw_frame();
     void init();
     [[nodiscard]] SDL_Renderer* get_renderer() const;
-    void add_sprite(RLayer layer, const std::shared_ptr<Sprite> &sprite);
+    void add_sprite(RLayer layer, const std::string &name, const Sprite &sprite);
+    Sprite& get_sprite(RLayer layer, const std::string& name);
+
     void free();
 
     ~RenderSystem();
