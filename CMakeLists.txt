@@ -19,5 +19,9 @@ add_executable(lazyfoo_tut2 main.cpp
         RenderingLayer.cpp
         RenderingLayer.h
         Sprite.cpp
-        Sprite.h)
+        Sprite.h
+        GameObject.cpp
+        GameObject.h
+        CanvasItem.cpp
+        CanvasItem.h)
 target_link_libraries(lazyfoo_tut2 ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES})

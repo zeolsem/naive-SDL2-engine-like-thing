@@ -11,24 +11,18 @@ void RenderingLayer::clear() {
 }
 
 void RenderingLayer::renderLayer(SDL_Renderer* renderer) const {
-    for (const auto& [name, sprite] : sprite_map) {
-        sprite.draw(renderer);
+    for (const auto& [name, sprite_shared] : sprite_map) {
+        sprite_shared->draw(renderer);
     }
 }
 
-void RenderingLayer::add_sprite(const std::shared_ptr<Sprite>& sprite) {
-    sprites_.emplace_back(sprite);
-}
-
-Sprite& RenderingLayer::get(const std::string &name) {
-    return sprite_map.at(name);
-}
-
-
-void RenderingLayer::add_sprite(const std::string &name, const Sprite& sprite) {
-    auto [fst, snd] = sprite_map.insert({name, sprite});
-    if (!snd) {
+void RenderingLayer::add_sprite(const std::string& name, const std::shared_ptr<Sprite> sprite) {
+    auto [_, success] = sprite_map.insert({name, sprite});
+    if (!success) {
         throw std::runtime_error("Key already exists in the sprite map");
     }
+}
 
+std::weak_ptr<Sprite> RenderingLayer::get_sprite(const std::string &name) {
+    return sprite_map.at(name);
 }

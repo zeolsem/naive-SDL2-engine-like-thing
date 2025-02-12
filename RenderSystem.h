@@ -8,10 +8,10 @@
 #include <SDL_render.h>
 #include <vector>
 
+#include "GameObject.h"
 #include "RenderingLayer.h"
 #include "Texture.h"
 
-enum class RLayer { BACKGROUND=0, OTHER=1, PLAYER=2, LAYER_AMOUNT=3};
 
 class RenderSystem {
 private:
@@ -23,8 +23,8 @@ public:
     void draw_frame();
     void init();
     [[nodiscard]] SDL_Renderer* get_renderer() const;
-    void add_sprite(RLayer layer, const std::string &name, const Sprite &sprite);
-    Sprite& get_sprite(RLayer layer, const std::string& name);
+    void add_sprite(RLayer layer, const std::string &name, const std::shared_ptr<Sprite> &sprite);
+    void add_tree(const std::shared_ptr<GameObject> &root);
 
     void free();
 

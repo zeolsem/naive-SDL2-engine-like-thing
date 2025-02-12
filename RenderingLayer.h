@@ -10,17 +10,17 @@
 
 #include "Sprite.h"
 
+enum class RLayer { BACKGROUND=0, OTHER=1, PLAYER=2, LAYER_AMOUNT=3};
 
 class RenderingLayer {
     std::vector<std::shared_ptr<Sprite>> sprites_;
-    std::unordered_map<std::string, Sprite> sprite_map;
+    std::unordered_map<std::string, std::shared_ptr<Sprite>> sprite_map;
 public:
     void clear();
     void renderLayer(SDL_Renderer *renderer) const;
-    void add_sprite(const std::shared_ptr<Sprite>& sprite);
-    Sprite& get(const std::string& name);
+    void add_sprite(const std::string &name, std::shared_ptr<Sprite> sprite);
 
-    void add_sprite(const std::string &name, const Sprite &sprite);
+    std::weak_ptr<Sprite> get_sprite(const std::string &name);
 };
 
 

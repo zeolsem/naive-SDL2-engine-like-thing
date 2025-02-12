@@ -41,12 +41,17 @@ SDL_Renderer * RenderSystem::get_renderer() const {
     return renderer;
 }
 
-void RenderSystem::add_sprite(RLayer layer, const std::string& name, const Sprite& sprite) {
+void RenderSystem::add_sprite(RLayer layer, const std::string &name, const std::shared_ptr<Sprite> &sprite) {
     layers_[static_cast<int>(layer)].add_sprite(name, sprite);
 }
 
-Sprite & RenderSystem::get_sprite(RLayer layer, const std::string &name) {
-    return layers_[static_cast<int>(layer)].get(name);
+void RenderSystem::add_tree(const std::shared_ptr<GameObject> &root) {
+    if (root->is_canvas_item()) {
+        layers_[static_cast<int>(root->get_layer())].add_sprite(root->get_name(), root->get_sprite());
+    }
+    for (std::shared_ptr<GameObject>& obj : root->get_children()) {
+        add_tree(obj);
+    }
 }
 
 void RenderSystem::free() {

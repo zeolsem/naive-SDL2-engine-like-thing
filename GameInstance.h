@@ -23,11 +23,15 @@ public:
     // program flow
     bool init();
     void close();
+
+    void setup_test_tree() const;
+
     [[nodiscard]] int mainLoop();
 
 private:
     int SCREEN_HEIGHT;
     int SCREEN_WIDTH;
+    std::shared_ptr<GameObject> root;
 };
 
 #endif //GAMEINSTANCE_H
